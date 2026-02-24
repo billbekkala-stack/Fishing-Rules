@@ -1,22 +1,12 @@
 import { Platform, StyleSheet, View } from 'react-native';
-import { useEffect } from 'react';
+import { useState } from 'react';
 
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import type { River } from '@/lib/riverData';
 
 export default function ExploreScreen() {
-  // Re-apply popup z-index when map mounts (ensures it works on Netlify/mobile)
-  useEffect(() => {
-    if (Platform.OS !== 'web' || typeof document === 'undefined') return;
-    const apply = () => {
-      document.querySelectorAll('.leaflet-popup-pane, .leaflet-popup').forEach((el) => {
-        (el as HTMLElement).style.zIndex = '99999';
-      });
-    };
-    apply();
-    const t = setTimeout(apply, 300); // retry after Leaflet mounts
-    return () => clearTimeout(t);
-  }, []);
+  const [selectedRiver, setSelectedRiver] = useState<River | null>(null);
 
   if (Platform.OS === 'web') {
     const { MapContainer, TileLayer } = require('react-leaflet');
@@ -44,9 +34,70 @@ export default function ExploreScreen() {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <WaterBodiesLayer />
+            <WaterBodiesLayer onRiverSelect={setSelectedRiver} />
           </MapContainer>
         </View>
+        {selectedRiver && (
+          <div
+            style={{
+              position: 'fixed',
+              inset: 0,
+              zIndex: 2147483647,
+              backgroundColor: 'rgba(0,0,0,0.5)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: 20,
+            }}
+            onClick={() => setSelectedRiver(null)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === 'Escape' && setSelectedRiver(null)}
+            aria-label="Close overlay">
+            <div
+              style={{
+                backgroundColor: 'white',
+                borderRadius: 12,
+                padding: 20,
+                maxWidth: 340,
+                width: '100%',
+                maxHeight: '80vh',
+                overflow: 'auto',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+              }}
+              onClick={(e) => e.stopPropagation()}>
+              <strong style={{ fontSize: 16 }}>{selectedRiver.name}</strong>
+              {selectedRiver.county && (
+                <div style={{ fontSize: 13, color: '#666', marginTop: 4 }}>{selectedRiver.county} County</div>
+              )}
+              {selectedRiver.location && (
+                <div style={{ fontSize: 12, color: '#666', marginTop: 4 }}>{selectedRiver.location}</div>
+              )}
+              <div style={{ marginTop: 12, fontSize: 13, color: '#333' }}>
+                {selectedRiver.regulations?.map((reg) => (
+                  <div key={reg.label} style={{ marginTop: 6 }}>
+                    <strong>{reg.label}:</strong> {reg.value}
+                  </div>
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedRiver(null)}
+                style={{
+                  marginTop: 16,
+                  padding: '10px 20px',
+                  backgroundColor: '#4da6ff',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: 8,
+                  fontSize: 14,
+                  cursor: 'pointer',
+                }}>
+                Close
+              </button>
+            </div>
+          </div>
+        )}
       </ThemedView>
     );
   }
