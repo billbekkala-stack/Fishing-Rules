@@ -17,10 +17,17 @@ if (Platform.OS === 'web') {
     iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
     shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
   });
-  // Ensure popups appear above zoom controls on mobile
+  // Ensure popups appear above zoom controls (Leaflet zoom = 1000, popup must be higher)
   if (typeof document !== 'undefined') {
     const style = document.createElement('style');
-    style.textContent = '.leaflet-popup-pane { z-index: 9999 !important; }';
+    style.id = 'leaflet-popup-zindex-fix';
+    style.textContent = `
+      .leaflet-popup-pane,
+      .leaflet-popup,
+      .leaflet-popup-content-wrapper,
+      .leaflet-popup-tip { z-index: 99999 !important; }
+      .leaflet-control-zoom { z-index: 400 !important; }
+    `;
     document.head.appendChild(style);
   }
 }

@@ -1,9 +1,23 @@
 import { Platform, StyleSheet, View } from 'react-native';
+import { useEffect } from 'react';
 
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
 export default function ExploreScreen() {
+  // Re-apply popup z-index when map mounts (ensures it works on Netlify/mobile)
+  useEffect(() => {
+    if (Platform.OS !== 'web' || typeof document === 'undefined') return;
+    const apply = () => {
+      document.querySelectorAll('.leaflet-popup-pane, .leaflet-popup').forEach((el) => {
+        (el as HTMLElement).style.zIndex = '99999';
+      });
+    };
+    apply();
+    const t = setTimeout(apply, 300); // retry after Leaflet mounts
+    return () => clearTimeout(t);
+  }, []);
+
   if (Platform.OS === 'web') {
     const { MapContainer, TileLayer } = require('react-leaflet');
     const { WaterBodiesLayer } = require('@/components/WaterBodiesLayer');
