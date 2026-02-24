@@ -3,7 +3,6 @@ import { Platform, StyleSheet, View } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
-// Web: Leaflet map. Native: react-native-maps (loaded dynamically to avoid web bundle issues)
 export default function ExploreScreen() {
   if (Platform.OS === 'web') {
     const { MapContainer, TileLayer } = require('react-leaflet');
@@ -38,7 +37,6 @@ export default function ExploreScreen() {
     );
   }
 
-  // Native (iOS/Android): react-native-maps
   const { WaterBodiesLayerNative } = require('@/components/WaterBodiesLayerNative');
   return (
     <ThemedView style={styles.container}>

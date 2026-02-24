@@ -21,12 +21,12 @@ if (Platform.OS === 'web') {
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
+  const [loaded, fontError] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
 
-  if (!loaded) {
-    // Async font loading only occurs in development.
+  // On web, don't block rendering - font may load slowly or fail
+  if (!loaded && !fontError && Platform.OS !== 'web') {
     return null;
   }
 
