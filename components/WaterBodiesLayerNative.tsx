@@ -68,6 +68,7 @@ export function WaterBodiesLayerNative() {
       provider={PROVIDER_DEFAULT}
       mapType="standard"
       showsUserLocation
+      showsZoomControls={false}
     >
       {points.map(({ lat, lng, river }, i) => (
         <Marker
@@ -101,7 +102,8 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5,
+    elevation: 9999,
+    zIndex: 9999,
   },
   calloutTitle: {
     fontSize: 15,
