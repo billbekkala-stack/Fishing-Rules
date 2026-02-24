@@ -42,7 +42,7 @@ export function WaterBodiesLayer() {
     <>
       {points.map(({ lat, lng, river }, i) => (
         <Marker key={`${river.id}-${i}`} position={[lat, lng]}>
-          <Popup maxWidth={340}>{buildPopupContent(river)}</Popup>
+          <Popup maxWidth={340} zIndexOffset={2000}>{buildPopupContent(river)}</Popup>
         </Marker>
       ))}
     </>

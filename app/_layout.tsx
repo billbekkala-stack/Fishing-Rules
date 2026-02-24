@@ -17,6 +17,12 @@ if (Platform.OS === 'web') {
     iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
     shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
   });
+  // Ensure popups appear above zoom controls on mobile
+  if (typeof document !== 'undefined') {
+    const style = document.createElement('style');
+    style.textContent = '.leaflet-popup-pane { z-index: 9999 !important; }';
+    document.head.appendChild(style);
+  }
 }
 
 export default function RootLayout() {

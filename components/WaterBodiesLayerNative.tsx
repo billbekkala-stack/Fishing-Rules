@@ -1,62 +1,49 @@
 /**
  * Native map layer for iOS/Android using react-native-maps.
- * Tap a pin to see regulations in a bottom panel (avoids map overlay z-index issues).
+ * Displays rivers and lakes as tappable pins with callouts showing regulations.
  */
 
-import React, { useCallback, useMemo, useState } from 'react';
-import {
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import MapView, { Marker, PROVIDER_DEFAULT } from 'react-native-maps';
+import React, { useMemo } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import MapView, { Callout, Marker, PROVIDER_DEFAULT } from 'react-native-maps';
 import { buildRiverPoints } from '@/lib/riverData';
 import type { River } from '@/lib/riverData';
 
 const MICHIGAN_CENTER = { latitude: 44.3, longitude: -85.6 };
 const INITIAL_DELTA = { latitudeDelta: 4.5, longitudeDelta: 5.5 };
 
-function RiverPanel({
-  river,
-  onClose,
-}: {
-  river: River | null;
-  onClose: () => void;
-}) {
-  if (!river) return null;
+function RiverCallout({ river }: { river: River }) {
   return (
-    <View style={styles.panel}>
-      <ScrollView style={styles.panelScroll} showsVerticalScrollIndicator={false}>
-        <Text style={styles.calloutTitle}>{river.name}</Text>
-        {river.county && (
-          <Text style={styles.calloutSubtitle}>{river.county} County</Text>
-        )}
-        {river.location && (
-          <Text style={styles.calloutLocation}>{river.location}</Text>
-        )}
-        {river.regulations && river.regulations.length > 0 && (
-          <View style={styles.regulations}>
-            {river.regulations.map((reg) => (
-              <Text key={reg.label} style={styles.regulation}>
-                <Text style={styles.regLabel}>{reg.label}:</Text> {reg.value}
-              </Text>
-            ))}
-          </View>
-        )}
-      </ScrollView>
-      <Pressable style={styles.closeButton} onPress={onClose}>
-        <Text style={styles.closeButtonText}>Close</Text>
-      </Pressable>
+    <View style={styles.callout}>
+      <Text style={styles.calloutTitle}>{river.name}</Text>
+      {river.county && (
+        <Text style={styles.calloutSubtitle}>{river.county} County</Text>
+      )}
+      {river.location && (
+        <Text style={styles.calloutLocation} numberOfLines={2}>
+          {river.location}
+        </Text>
+      )}
+      {river.regulations && river.regulations.length > 0 && (
+        <View style={styles.regulations}>
+          {river.regulations.slice(0, 4).map((reg) => (
+            <Text key={reg.label} style={styles.regulation} numberOfLines={1}>
+              <Text style={styles.regLabel}>{reg.label}:</Text> {reg.value}
+            </Text>
+          ))}
+          {river.regulations.length > 4 && (
+            <Text style={styles.moreRegs}>
+              +{river.regulations.length - 4} more...
+            </Text>
+          )}
+        </View>
+      )}
     </View>
   );
 }
 
 export function WaterBodiesLayerNative() {
   const points = useMemo(() => buildRiverPoints(), []);
-  const [selectedRiver, setSelectedRiver] = useState<River | null>(null);
-  const closePanel = useCallback(() => setSelectedRiver(null), []);
 
   if (points.length === 0) {
     return (
@@ -72,71 +59,49 @@ export function WaterBodiesLayerNative() {
   }
 
   return (
-    <View style={styles.container}>
-      <MapView
-        style={styles.map}
-        initialRegion={{
-          ...MICHIGAN_CENTER,
-          ...INITIAL_DELTA,
-        }}
-        provider={PROVIDER_DEFAULT}
-        mapType="standard"
-        showsUserLocation
-        showsZoomControls={false}
-      >
-        {points.map(({ lat, lng, river }, i) => (
-          <Marker
-            key={`${river.id}-${i}`}
-            coordinate={{ latitude: lat, longitude: lng }}
-            onPress={() => setSelectedRiver(river)}
-          />
-        ))}
-      </MapView>
-      {selectedRiver && (
-        <RiverPanel river={selectedRiver} onClose={closePanel} />
-      )}
-    </View>
+    <MapView
+      style={styles.map}
+      initialRegion={{
+        ...MICHIGAN_CENTER,
+        ...INITIAL_DELTA,
+      }}
+      provider={PROVIDER_DEFAULT}
+      mapType="standard"
+      showsUserLocation
+    >
+      {points.map(({ lat, lng, river }, i) => (
+        <Marker
+          key={`${river.id}-${i}`}
+          coordinate={{ latitude: lat, longitude: lng }}
+          title={river.name}
+          description={river.county ? `${river.county} County` : undefined}
+        >
+          <Callout tooltip>
+            <RiverCallout river={river} />
+          </Callout>
+        </Marker>
+      ))}
+    </MapView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   map: {
-    flex: 1,
-    minHeight: 300,
+    width: '100%',
+    height: '100%',
+    minHeight: 400,
   },
-  panel: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    maxHeight: '50%',
+  callout: {
+    minWidth: 220,
+    maxWidth: 300,
+    padding: 12,
     backgroundColor: '#fff',
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    padding: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: -4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    elevation: 20,
-  },
-  panelScroll: {
-    maxHeight: 220,
-  },
-  closeButton: {
-    marginTop: 12,
-    paddingVertical: 10,
-    alignItems: 'center',
-    backgroundColor: '#0a66c2',
     borderRadius: 8,
-  },
-  closeButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   calloutTitle: {
     fontSize: 15,
