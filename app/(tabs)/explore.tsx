@@ -13,12 +13,14 @@ export default function ExploreScreen() {
 
     return (
       <ThemedView style={styles.container}>
-        <ThemedText type="title" style={styles.title}>
-          Explore
-        </ThemedText>
-        <ThemedText style={styles.subtitle}>
-          Tap a pin to see the river or lake name and fishing regulations (when available).
-        </ThemedText>
+        <View style={styles.header}>
+          <ThemedText type="title" style={styles.title}>
+            Explore
+          </ThemedText>
+          <ThemedText style={styles.subtitle}>
+            Tap a pin to see the river or lake name and fishing regulations.
+          </ThemedText>
+        </View>
         <View style={styles.mapWrapper}>
           <MapContainer
             center={center}
@@ -40,12 +42,14 @@ export default function ExploreScreen() {
   const { WaterBodiesLayerNative } = require('@/components/WaterBodiesLayerNative');
   return (
     <ThemedView style={styles.container}>
-      <ThemedText type="title" style={styles.title}>
-        Explore
-      </ThemedText>
-      <ThemedText style={styles.subtitle}>
-        Tap a pin to see the river or lake name and fishing regulations (when available).
-      </ThemedText>
+      <View style={styles.header}>
+        <ThemedText type="title" style={styles.title}>
+          Explore
+        </ThemedText>
+        <ThemedText style={styles.subtitle}>
+          Tap a pin to see the river or lake name and fishing regulations.
+        </ThemedText>
+      </View>
       <View style={styles.mapWrapper}>
         <WaterBodiesLayerNative />
       </View>
@@ -56,19 +60,22 @@ export default function ExploreScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+  },
+  header: {
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 8,
   },
   title: {
     marginBottom: 8,
   },
   subtitle: {
-    marginBottom: 16,
+    marginBottom: 12,
     opacity: 0.8,
   },
   mapWrapper: {
     flex: 1,
     minHeight: 400,
-    borderRadius: 12,
     overflow: 'hidden',
   },
   map: {
