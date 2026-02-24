@@ -1,11 +1,10 @@
 /**
  * Native map layer for iOS/Android using react-native-maps.
- * Displays rivers and lakes as tappable pins. Tap a pin to see regulations in a modal.
+ * Tap a pin to see regulations in a bottom panel (avoids map overlay z-index issues).
  */
 
 import React, { useCallback, useMemo, useState } from 'react';
 import {
-  Modal,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -19,7 +18,7 @@ import type { River } from '@/lib/riverData';
 const MICHIGAN_CENTER = { latitude: 44.3, longitude: -85.6 };
 const INITIAL_DELTA = { latitudeDelta: 4.5, longitudeDelta: 5.5 };
 
-function RiverModal({
+function RiverPanel({
   river,
   onClose,
 }: {
@@ -28,40 +27,36 @@ function RiverModal({
 }) {
   if (!river) return null;
   return (
-    <Modal visible={!!river} transparent animationType="fade">
-      <Pressable style={styles.modalOverlay} onPress={onClose}>
-        <Pressable style={styles.modalContent} onPress={(e) => e.stopPropagation()}>
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <Text style={styles.calloutTitle}>{river.name}</Text>
-            {river.county && (
-              <Text style={styles.calloutSubtitle}>{river.county} County</Text>
-            )}
-            {river.location && (
-              <Text style={styles.calloutLocation}>{river.location}</Text>
-            )}
-            {river.regulations && river.regulations.length > 0 && (
-              <View style={styles.regulations}>
-                {river.regulations.map((reg) => (
-                  <Text key={reg.label} style={styles.regulation}>
-                    <Text style={styles.regLabel}>{reg.label}:</Text> {reg.value}
-                  </Text>
-                ))}
-              </View>
-            )}
-          </ScrollView>
-          <Pressable style={styles.closeButton} onPress={onClose}>
-            <Text style={styles.closeButtonText}>Close</Text>
-          </Pressable>
-        </Pressable>
+    <View style={styles.panel}>
+      <ScrollView style={styles.panelScroll} showsVerticalScrollIndicator={false}>
+        <Text style={styles.calloutTitle}>{river.name}</Text>
+        {river.county && (
+          <Text style={styles.calloutSubtitle}>{river.county} County</Text>
+        )}
+        {river.location && (
+          <Text style={styles.calloutLocation}>{river.location}</Text>
+        )}
+        {river.regulations && river.regulations.length > 0 && (
+          <View style={styles.regulations}>
+            {river.regulations.map((reg) => (
+              <Text key={reg.label} style={styles.regulation}>
+                <Text style={styles.regLabel}>{reg.label}:</Text> {reg.value}
+              </Text>
+            ))}
+          </View>
+        )}
+      </ScrollView>
+      <Pressable style={styles.closeButton} onPress={onClose}>
+        <Text style={styles.closeButtonText}>Close</Text>
       </Pressable>
-    </Modal>
+    </View>
   );
 }
 
 export function WaterBodiesLayerNative() {
   const points = useMemo(() => buildRiverPoints(), []);
   const [selectedRiver, setSelectedRiver] = useState<River | null>(null);
-  const closeModal = useCallback(() => setSelectedRiver(null), []);
+  const closePanel = useCallback(() => setSelectedRiver(null), []);
 
   if (points.length === 0) {
     return (
@@ -77,7 +72,7 @@ export function WaterBodiesLayerNative() {
   }
 
   return (
-    <>
+    <View style={styles.container}>
       <MapView
         style={styles.map}
         initialRegion={{
@@ -97,36 +92,39 @@ export function WaterBodiesLayerNative() {
           />
         ))}
       </MapView>
-      <RiverModal river={selectedRiver} onClose={closeModal} />
-    </>
+      {selectedRiver && (
+        <RiverPanel river={selectedRiver} onClose={closePanel} />
+      )}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  map: {
-    width: '100%',
-    height: '100%',
-    minHeight: 400,
-  },
-  modalOverlay: {
+  container: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 24,
   },
-  modalContent: {
-    width: '100%',
-    maxWidth: 340,
-    maxHeight: '80%',
+  map: {
+    flex: 1,
+    minHeight: 300,
+  },
+  panel: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    maxHeight: '50%',
     backgroundColor: '#fff',
-    borderRadius: 12,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
     padding: 16,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
+    shadowOffset: { width: 0, height: -4 },
+    shadowOpacity: 0.2,
     shadowRadius: 8,
-    elevation: 10,
+    elevation: 20,
+  },
+  panelScroll: {
+    maxHeight: 220,
   },
   closeButton: {
     marginTop: 12,
