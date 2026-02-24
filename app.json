@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "Fishing Rules",
+    "slug": "fishing-rules",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "web": {
+      "bundler": "metro",
+      "name": "Fishing Rules",
+      "shortName": "Rules",
+      "display": "standalone",
+      "themeColor": "#0a66c2",
+      "backgroundColor": "#ffffff",
+      "startUrl": ".",
+      "scope": "."
+    }
+  }
+}
