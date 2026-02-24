@@ -87,6 +87,7 @@ export function WaterBodiesLayerNative() {
         provider={PROVIDER_DEFAULT}
         mapType="standard"
         showsUserLocation
+        showsZoomControls={false}
       >
         {points.map(({ lat, lng, river }, i) => (
           <Marker
