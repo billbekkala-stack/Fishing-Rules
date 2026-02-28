@@ -16,45 +16,57 @@ export type River = {
 export const RIVER_COORDS: Record<string, [number, number]> = {
   'Au Sable River Mainstream|Alcona': [44.4727, -83.5721],
   'Au Sable River Mainstream|Crawford': [44.6651, -84.6599],
-  'Au Sable River Mainstream|Iosco': [44.4353, -83.441],
-  'Au Sable River Mainstream|Oscoda': [44.6573, -84.093],
+  'Au Sable River Mainstream|Iosco': [44.4353, -83.4410],
+  'Au Sable River Mainstream|Oscoda': [44.6573, -84.0930],
   'Bark River|Delta': [45.7198, -87.2688],
-  'Bear Creek|Manistee': [44.292, -86.0636],
+  'Bear Creek|Manistee': [44.2920, -86.0636],
   'Bear River|Charlevoix': [45.2612, -84.9342],
-  'Bear River|Emmet': [45.369, -84.9665],
+  'Bear River|Emmet': [45.3690, -84.9665],
   'Betsie River|Benzie': [44.5937, -86.0724],
   'Big Cedar River|Menominee': [45.6979, -87.5292],
   'Big Fishdam River|Delta': [45.8999, -86.5787],
+  'Big Huron River|Baraga': [46.8890, -88.0899],
+  'Big Huron River|Marquette': [46.8658, -88.0837],
   'Big Sable River|Mason': [44.0959, -86.3507],
   'Big South Branch Pere Marquette River|Mason': [43.9273, -86.3919],
   'Big South Branch Pere Marquette River|Newaygo': [43.7714, -85.9841],
+  'Big Traverse River|Houghton': [47.1948, -88.2348],
+  'Big Traverse River|Keweenaw': [47.1999, -88.2439],
   'Bird Creek|Huron': [44.0372, -82.9874],
-  'Black River|Alcona': [44.58, -83.45],
-  'Black River|Allegan': [42.55, -86.15],
-  'Black River|Gogebic': [46.45, -89.75],
+  'Black River|Alcona': [44.5800, -83.4500],
+  'Black River|Allegan': [42.5500, -86.1500],
+  'Black River|Gogebic': [46.4500, -89.7500],
   'Black River|Montmorency': [45.2031, -84.3347],
   'Black River|Otsego': [45.0539, -84.4294],
   'Boardman River|Grand Traverse': [44.7206, -85.6176],
-  'Boyne River|Charlevoix': [45.213, -84.9827],
+  'Boyne River|Charlevoix': [45.2130, -84.9827],
   'Brevoort River|Mackinac': [45.9822, -84.9304],
-  'Carp Lake River|Emmet': [45.6771, -84.808],
+  'Carp Lake River|Emmet': [45.6771, -84.8080],
   'Cheboygan River|Cheboygan': [45.5954, -84.4735],
   'Chippewa River|Isabella': [43.6026, -84.7845],
   'Clam River|Antrim': [44.9423, -85.2829],
   'Crystal River|Leelanau': [44.9092, -85.9729],
   'Days River|Delta': [45.8942, -86.9821],
   'Devils River|Alpena': [44.9321, -83.4492],
+  'Eagle River|Keweenaw': [47.4138, -88.2980],
   'East Branch Au Gres River (Whitney Drain)|Arenac': [44.0753, -83.6897],
-  'East Branch Au Gres River (Whitney Drain)|Iosco': [44.271, -83.7196],
+  'East Branch Au Gres River (Whitney Drain)|Iosco': [44.2710, -83.7196],
+  'East Branch Ontonagon River|Houghton': [46.6596, -89.0477],
+  'Elm River|Houghton': [47.0498, -88.8864],
   'Escanaba River|Delta': [45.7804, -87.0671],
-  'Ford River|Delta': [45.6948, -87.129],
+  'Falls River|Baraga': [46.7531, -88.4540],
+  'Fanny Hooe River|Keweenaw': [47.4641, -87.8632],
+  'Ford River|Delta': [45.6948, -87.1290],
   'Ford River|Dickinson': [45.9126, -87.6302],
   'Ford River|Menominee': [45.8731, -87.3328],
   'Grass River|Antrim': [44.9299, -85.2093],
+  'Gratiot River|Keweenaw': [47.3273, -88.4199],
+  'Graveraet River|Houghton': [47.0931, -88.8452],
   'Intermediate River|Antrim': [45.0637, -85.1671],
   'Jordan River|Antrim': [45.1035, -85.0993],
-  'Jordan River|Charlevoix': [45.064, -84.9481],
+  'Jordan River|Charlevoix': [45.0640, -84.9481],
   'Lincoln River|Mason': [43.9985, -86.3733],
+  'Little Elm River|Houghton': [47.0387, -88.9007],
   'Little Manistee River|Lake': [44.0554, -85.8404],
   'Little Manistee River|Manistee': [44.1984, -86.1946],
   'Little Muskegon River|Mecosta': [43.6041, -85.2879],
@@ -65,7 +77,7 @@ export const RIVER_COORDS: Record<string, [number, number]> = {
   'Manistee River|Otsego': [44.9013, -84.8449],
   'Manistee River|Wexford': [44.4528, -85.6127],
   'Manistique River|Schoolcraft': [46.0268, -86.2209],
-  'Maple River|Cheboygan': [45.55, -84.48],
+  'Maple River|Cheboygan': [45.5500, -84.4800],
   'Maple River|Emmet': [45.5425, -84.9051],
   'Milakokia River|Schoolcraft': [45.9993, -85.9105],
   'Muskegon River|Mecosta': [43.6041, -85.2879],
@@ -75,31 +87,45 @@ export const RIVER_COORDS: Record<string, [number, number]> = {
   'North Branch Cedar River|Gladwin': [43.9651, -84.4843],
   'North Branch Pentwater River|Oceana': [43.7075, -86.3711],
   'North Branch White River|Oceana': [43.5924, -86.2217],
-  'Otter Creek|Benzie': [44.7555, -86.07],
+  'Otter Creek|Benzie': [44.7555, -86.0700],
+  'Otter River|Baraga': [46.8352, -88.6388],
+  'Otter River|Houghton': [46.8385, -88.6488],
   'Pentwater River|Oceana': [43.7132, -86.3125],
   'Pere Marquette River|Lake': [43.8665, -85.7894],
   'Pere Marquette River|Mason': [43.9273, -86.3919],
   'Pigeon River|Cheboygan': [45.4393, -84.5431],
   'Pigeon River|Huron': [43.8879, -83.2667],
-  'Pigeon River|Otsego': [45.0488, -84.572],
+  'Pigeon River|Otsego': [45.0488, -84.5720],
+  'Pilgrim River and tributaries|Houghton': [47.0717, -88.5823],
+  'Pilgrim River|Houghton': [47.1057, -88.5146],
   'Pine River|Alcona': [44.5732, -83.5861],
-  'Pine River|Chippewa': [46.35, -84.55],
-  'Pine River|Iosco': [44.38, -83.62],
+  'Pine River|Chippewa': [46.3500, -84.5500],
+  'Pine River|Iosco': [44.3800, -83.6200],
   'Pine River|Lake': [44.1006, -85.6667],
   'Pine River|Wexford': [44.1822, -85.4846],
   'Pinnebog River|Huron': [43.8866, -83.1529],
   'Platte River|Benzie': [44.6656, -86.0297],
+  'Portage/Torch Lake system|Houghton': [47.0640, -88.4961],
   'Rapid River|Delta': [45.9133, -86.9621],
   'Rapid River|Kalkaska': [44.7501, -85.1827],
-  'Saginaw River|Bay': [43.575, -83.9076],
+  'Ravine River|Baraga': [46.8411, -88.2301],
+  'Saginaw River|Bay': [43.5750, -83.9076],
+  'Salmon Trout River|Houghton': [47.1194, -88.7453],
+  'Silver Creek|Keweenaw': [47.4433, -88.0587],
+  'Silver River|Baraga': [46.8081, -88.3148],
+  'Silver River|Keweenaw': [47.4669, -88.0734],
+  'Slate River|Baraga': [46.8305, -88.2495],
   'South Branch Au Sable River|Crawford': [44.6651, -84.6599],
-  'Sturgeon River|Baraga': [46.75, -88.35],
+  'South Branch Elm River|Houghton': [47.0178, -88.9182],
+  'Sturgeon River|Baraga': [46.5797, -88.6781],
   'Sturgeon River|Cheboygan': [45.4127, -84.6091],
   'Sturgeon River|Delta': [45.8814, -86.6978],
-  'Sturgeon River|Houghton': [46.95, -88.55],
+  'Sturgeon River|Houghton': [46.6626, -88.7127],
   'Tacoosh River|Delta': [45.9162, -86.9723],
   'Thunder Bay River|Alpena': [45.0625, -83.4284],
+  'Tobacco River|Keweenaw': [47.2822, -88.1446],
   'Torch River|Antrim': [44.8476, -85.3256],
+  'Trap Rock River|Houghton': [47.2784, -88.3595],
   'Trout River|Presque Isle': [45.3791, -83.6608],
   'Van Etten Creek|Iosco': [44.4418, -83.3397],
   'White River|Oceana': [43.5924, -86.2217],
@@ -174,7 +200,31 @@ try {
 
 export type RiverPoint = { lat: number; lng: number; river: River };
 
-export function buildRiverPoints(): RiverPoint[] {
+export type RiverKeyForPicker = { key: string; river: River };
+
+/** Returns unique river+county entries for the coordinate picker. */
+export function getRiverKeysForPicker(): RiverKeyForPicker[] {
+  const seen = new Set<string>();
+  const result: RiverKeyForPicker[] = [];
+  for (const river of riversData) {
+    const county = river.county || 'Unknown';
+    const key = `${river.name}|${county}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    result.push({ key, river });
+  }
+  return result.sort((a, b) => a.key.localeCompare(b.key));
+}
+
+export function buildRiverPoints(): RiverPoint[];
+export function buildRiverPoints(
+  coordOverrides: Record<string, [number, number]>,
+  explicitPlacementKeys?: Set<string>
+): RiverPoint[];
+export function buildRiverPoints(
+  coordOverrides?: Record<string, [number, number]>,
+  explicitPlacementKeys?: Set<string>
+): RiverPoint[] {
   const seen = new Set<string>();
   const points: RiverPoint[] = [];
   let idx = 0;
@@ -187,12 +237,11 @@ export function buildRiverPoints(): RiverPoint[] {
 
     const riverKey = `${river.name}|${county}`;
     const coords =
-      RIVER_COORDS[riverKey] ||
-      RIVER_COORDS[river.name] ||
-      COUNTY_COORDS[county] ||
-      [44.3, -85.6];
+      coordOverrides?.[riverKey] ?? RIVER_COORDS[riverKey] ?? RIVER_COORDS[river.name] ?? COUNTY_COORDS[county] ?? [44.3, -85.6];
 
-    const offset = 0.003 * (idx % 8);
+    // Skip offset for explicitly placed pins (from picker); only offset default coords to avoid overlap
+    const isExplicitPlacement = explicitPlacementKeys?.has(riverKey) ?? false;
+    const offset = isExplicitPlacement ? 0 : 0.003 * (idx % 8);
     const angle = (idx * 45) * (Math.PI / 180);
     points.push({
       lat: coords[0] + Math.cos(angle) * offset,

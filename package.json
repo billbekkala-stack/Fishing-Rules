@@ -5,6 +5,9 @@
   "scripts": {
     "build:web": "expo export -p web && node scripts/generate-sw.js",
     "start": "expo start",
+    "web:local": "node scripts/start-web-in-cursor.js",
+    "web:picker": "node scripts/start-web-in-cursor.js --picker",
+    "update-coords-server": "node scripts/update-coords-server.js",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo start --android",
     "ios": "expo start --ios",

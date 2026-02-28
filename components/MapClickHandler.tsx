@@ -1,0 +1,18 @@
+/**
+ * Captures map clicks and passes lat/lng to callback.
+ * Must be used inside MapContainer (react-leaflet).
+ */
+import { useMapEvents } from 'react-leaflet';
+
+type Props = {
+  onMapClick: (lat: number, lng: number) => void;
+};
+
+export function MapClickHandler({ onMapClick }: Props) {
+  useMapEvents({
+    click: (e) => {
+      onMapClick(e.latlng.lat, e.latlng.lng);
+    },
+  });
+  return null;
+}

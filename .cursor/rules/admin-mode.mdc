@@ -1,0 +1,20 @@
+---
+description: When user says "Admin", prompt for what to edit
+alwaysApply: true
+---
+
+# Admin Mode
+
+When the user says **"Admin"** (or "admin"), respond by asking what they want to edit. For example:
+
+> "What do you want to edit?"
+
+Then list the available admin options. Currently:
+
+- **River coordinates** — Reposition map pins. Say **"pins"** or **"picker"** and the agent will run `npm run web:picker` to start the server and open the pin location editor. The Save button writes directly to `lib/riverData.ts` (requires the update-coords-server, which web:picker starts automatically).
+
+As the project grows, add more options to this list (e.g. regulations, river list, app settings). Keep the prompt friendly and open-ended so the user can describe what they need.
+
+**When the user says "pins" or "picker" or "river coordinates"** (in the context of Admin), run `npm run web:picker` in the terminal to start the web server and open the coordinate picker page.
+
+**Dev-only pages pattern:** Admin/dev pages (like /pin-location) use a localhost check: if `window.location.hostname` is not localhost or 127.0.0.1, show "Admin only" and a link back. This keeps them available locally but hidden from the live site. When adding new dev pages, use the same pattern.

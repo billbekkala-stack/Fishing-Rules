@@ -20,6 +20,9 @@ function OfflineMessage() {
 }
 
 export default function ExploreScreen() {
+  const isLocalhost =
+    typeof window !== 'undefined' &&
+    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
   const [selectedRiver, setSelectedRiver] = useState<River | null>(null);
   const isOnline = useOnline();
 
@@ -53,6 +56,20 @@ export default function ExploreScreen() {
           <ThemedText style={styles.subtitle}>
             Tap a pin to see the river or lake name and fishing regulations.
           </ThemedText>
+          {/* Dev-only: link to edit pin positions. Hidden on production (Netlify). */}
+          {isLocalhost && (
+            <a
+              href="/pin-location"
+              style={{
+                display: 'inline-block',
+                marginTop: 8,
+                fontSize: 13,
+                color: '#4da6ff',
+                textDecoration: 'underline',
+              }}>
+              Pin location
+            </a>
+          )}
         </View>
         <View style={styles.mapWrapper}>
           <MapContainer

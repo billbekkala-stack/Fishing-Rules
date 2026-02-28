@@ -1,0 +1,14 @@
+---
+description: When user says "Test", start web server and open in Cursor's built-in browser
+alwaysApply: true
+---
+
+# Test (Open in Cursor)
+
+When the user says **"Test"** (or "test" or "run test"), run this command in the terminal so the user can see the output:
+
+```
+npm run web:local
+```
+
+This starts the Expo web server and opens it in Cursor's Simple Browser (embedded in the IDE, not in Chrome). The server runs in the foreground; the browser opens automatically once the server is ready.
