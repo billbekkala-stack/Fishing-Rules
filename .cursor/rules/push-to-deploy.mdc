@@ -5,10 +5,11 @@ alwaysApply: true
 
 # Push to Deploy
 
-When the user says **"Push"** (or "push" or "deploy"), run these commands to deploy to Netlify:
+When the user says **"Push"** (or "push" or "deploy"), run these commands in the terminal so the user can see the output:
 
-1. `git add .`
-2. `git commit -m "..."` — use a brief descriptive message (e.g., "Update river list padding") or ask the user for one
-3. `git push`
+1. `git status` — show what will be committed
+2. `git add .`
+3. `git commit -m "..."` — use a brief descriptive message (e.g., "Update river list padding") or ask the user for one
+4. `git push`
 
-Netlify is connected to the repo, so pushing automatically triggers a build and deploy. No separate deploy command is needed.
+Run each command separately (or as a single chained command) so the terminal displays the output. Netlify is connected to the repo, so pushing automatically triggers a build and deploy.
