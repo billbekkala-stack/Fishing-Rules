@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   SafeAreaView,
   Text,
@@ -69,6 +69,14 @@ export default function HomeScreen() {
   const [query, setQuery] = useState<string>("");
   const [selected, setSelected] = useState<River | null>(null);
   const [imgError, setImgError] = useState<string | null>(null);
+  const detailListRef = useRef<FlatList>(null);
+
+  // Scroll to top when a river is selected
+  useEffect(() => {
+    if (selected && detailListRef.current) {
+      detailListRef.current.scrollToOffset({ offset: 0, animated: false });
+    }
+  }, [selected]);
 
   // Prefetch background (guarded) for PWA caching
   useEffect(() => {
@@ -140,6 +148,8 @@ export default function HomeScreen() {
         {selected ? (
           // ---------- SCROLLABLE DETAIL VIEW ----------
           <FlatList
+            ref={detailListRef}
+            key={selected.id}
             style={{ flex: 1 }}
             // Build a list that contains EVERY regulation row in the desired order,
             // showing "—" where the CSV had an empty value.
