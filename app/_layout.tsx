@@ -1,6 +1,7 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
+// @ts-expect-error expo-status-bar type definitions have a module resolution quirk
 import { StatusBar } from 'expo-status-bar';
 import { Platform } from 'react-native';
 import { useEffect } from 'react';

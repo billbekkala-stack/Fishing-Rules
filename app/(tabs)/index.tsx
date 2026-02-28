@@ -52,6 +52,9 @@ try {
   console.warn("Background image not found at assets/background.jpg");
 }
 
+// Extra padding at bottom so content can scroll above the tab bar
+const TAB_BAR_BUFFER = 80;
+
 // Show ALL regulation rows in this order:
 const ALL_REG_LABELS = [
   "Fishing Season",
@@ -189,14 +192,14 @@ export default function HomeScreen() {
                 </Text>
               </View>
             )}
-            contentContainerStyle={{ paddingBottom: 24 }}
+            contentContainerStyle={{ paddingBottom: TAB_BAR_BUFFER }}
           />
         ) : (
           // ---------- LIST VIEW (shows county + location) ----------
           <FlatList
             data={filtered}
             keyExtractor={(item) => item.id}
-            contentContainerStyle={{ paddingBottom: Platform.OS === "web" ? 24 : 0 }}
+            contentContainerStyle={{ paddingBottom: TAB_BAR_BUFFER }}
             ItemSeparatorComponent={() => <View style={{ height: 8 }} />}
             renderItem={({ item }) => (
               <Pressable
