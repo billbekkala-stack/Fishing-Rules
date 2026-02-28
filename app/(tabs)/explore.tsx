@@ -3,10 +3,40 @@ import { useState } from 'react';
 
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { useOnline } from '@/hooks/useOnline';
 import type { River } from '@/lib/riverData';
+
+function OfflineMessage() {
+  return (
+    <View style={styles.offlineContainer}>
+      <ThemedText type="title" style={styles.offlineTitle}>
+        No internet connection
+      </ThemedText>
+      <ThemedText style={styles.offlineMessage}>
+        The map needs an internet connection to load. Please connect to Wi‑Fi or cellular data and try again.
+      </ThemedText>
+    </View>
+  );
+}
 
 export default function ExploreScreen() {
   const [selectedRiver, setSelectedRiver] = useState<River | null>(null);
+  const isOnline = useOnline();
+
+  if (!isOnline) {
+    return (
+      <ThemedView style={styles.container}>
+        <View style={styles.header}>
+          <ThemedText type="title" style={styles.title}>
+            Explore
+          </ThemedText>
+        </View>
+        <View style={styles.mapWrapper}>
+          <OfflineMessage />
+        </View>
+      </ThemedView>
+    );
+  }
 
   if (Platform.OS === 'web') {
     const { MapContainer, TileLayer } = require('react-leaflet');
@@ -145,5 +175,19 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     minHeight: 400,
+  },
+  offlineContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 24,
+  },
+  offlineTitle: {
+    textAlign: 'center',
+    marginBottom: 12,
+  },
+  offlineMessage: {
+    textAlign: 'center',
+    opacity: 0.9,
   },
 });

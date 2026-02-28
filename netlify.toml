@@ -1,0 +1,6 @@
+# Netlify config for Fishing Rules PWA
+# Uses build:web so sw.js is copied to dist for offline support
+
+[build]
+  command = "npm run build:web"
+  publish = "dist"
