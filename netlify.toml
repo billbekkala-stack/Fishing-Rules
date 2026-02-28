@@ -4,3 +4,10 @@
 [build]
   command = "npm run build:web"
   publish = "dist"
+
+# SPA: serve index.html for all routes so client-side routing works
+# (fixes 404 when reloading on /explore or other tabs)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
