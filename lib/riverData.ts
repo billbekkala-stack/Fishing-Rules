@@ -239,8 +239,9 @@ export function buildRiverPoints(
     const coords =
       coordOverrides?.[riverKey] ?? RIVER_COORDS[riverKey] ?? RIVER_COORDS[river.name] ?? COUNTY_COORDS[county] ?? [44.3, -85.6];
 
-    // Skip offset for explicitly placed pins (from picker); only offset default coords to avoid overlap
-    const isExplicitPlacement = explicitPlacementKeys?.has(riverKey) ?? false;
+    // Skip offset for pins with saved coords (in RIVER_COORDS) or moved in picker; only offset county/fallback coords to avoid overlap
+    const hasSavedCoord = RIVER_COORDS[riverKey] != null || RIVER_COORDS[river.name] != null;
+    const isExplicitPlacement = hasSavedCoord || (explicitPlacementKeys?.has(riverKey) ?? false);
     const offset = isExplicitPlacement ? 0 : 0.003 * (idx % 8);
     const angle = (idx * 45) * (Math.PI / 180);
     points.push({

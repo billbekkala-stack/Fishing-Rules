@@ -265,7 +265,7 @@ export default function PinLocationScreen() {
             </Link>
           </div>
         </div>
-        <View style={{ flex: 1, minWidth: 0 }}>
+        <View style={styles.mapWrapper}>
           <MapContainer center={center} zoom={zoom} style={styles.map} scrollWheelZoom={true}>
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -299,6 +299,12 @@ const styles = StyleSheet.create({
   subtitle: {
     marginBottom: 12,
     opacity: 0.8,
+  },
+  mapWrapper: {
+    flex: 1,
+    minHeight: 400,
+    minWidth: 0,
+    overflow: 'hidden',
   },
   map: {
     width: '100%',
